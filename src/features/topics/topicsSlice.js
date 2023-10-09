@@ -30,3 +30,5 @@ export const topicsSlice = createSlice(sliceOptions)
 
 // [Step 5] Create selector that selects the topics object nested within initialState, and export the selector
 export const selectTopics = (state) => state.topics
+
+export default topicsSlice.reducer
