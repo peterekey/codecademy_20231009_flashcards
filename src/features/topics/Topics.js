@@ -1,10 +1,12 @@
 import React from "react";
+import { useSelector } from 'react-redux'
 import { Link } from "react-router-dom";
 import ROUTES from "../../app/routes";
-// import selector
+// [Step 7] import selector
+import { selectTopics } from '../topics/topicsSlice'
 
 export default function Topics() {
-  const topics = {}; // replace this with a call to your selector to select all the topics in state
+  const topics = useSelector(selectTopics); // [Step 7] replace this with a call to your selector to select all the topics in state
 
   return (
     <section className="center">
