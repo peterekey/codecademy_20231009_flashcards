@@ -11,24 +11,28 @@ const sliceOptions = {
         addTopic: (state, action) => {
             return {
                 ...state,
-                topics: {
-                    [action.payload.id]: {
-                        id: [action.payload.id],
-                        name: [action.payload.name],
-                        icon: [action.payload.icon],
-                        // [Step 5] Each topc object should have a quizIds property
-                        quizIds: []
+                    topics: {
+                        ...state.topics,
+                        [action.payload.id]: {
+                            id: action.payload.id,
+                            name: action.payload.name,
+                            icon: action.payload.icon,
+                            // [Step 5] Each topc object should have a quizIds property
+                            quizIds: []
+                        }
+                    }
                     }
                 }
             }
         }
-    }
-}
 
 // [Step 5] Create a slice named topicsSlice, and export the action creators & reducer
 export const topicsSlice = createSlice(sliceOptions)
 
 // [Step 5] Create selector that selects the topics object nested within initialState, and export the selector
 export const selectTopics = (state) => state.topics
+
+// [Step 8] Need to export the addTopic action
+export const { addTopic } = topicsSlice.actions
 
 export default topicsSlice.reducer
