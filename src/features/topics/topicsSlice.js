@@ -1,4 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createAction, createSlice } from '@reduxjs/toolkit'
+
+const addNewQuiz = createAction('addNewQuiz')
+
+const newQuizAdded = (action) => {
+    return action.name === 'addQuiz'
+}
+
 
 const sliceOptions = {
     name: "topics",
@@ -23,6 +30,26 @@ const sliceOptions = {
                 }
             }
         }
+    },
+    // [Step 10] Add an action to your topic's slice that adds a quiz's id to the quizIds array of the topic with wqhich the newly created quiz is associated
+    extraReducers: (builder) => {
+        builder
+            .addMatcher(newQuizAdded, (state, action) => {
+                const topic = state.topics.find(topic => topic.id === action.payload.topicId)
+                if (topic) {
+                    return {
+                        ...state,
+                        topics: {
+                            ...state.topics,
+                            [action.payload.topicId]: {
+                                quizIds: state.topics.quizIds.push(action.payload.id)
+                            }
+                        }
+                    }
+                }
+
+            })
+            .addDefaultCase((state, action) => {})
     }
 }
 
