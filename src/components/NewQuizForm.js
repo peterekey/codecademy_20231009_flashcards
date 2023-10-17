@@ -6,6 +6,9 @@ import ROUTES from "../app/routes";
 // [Step 11, 12] import selectors
 import { selectTopics } from '../features/topics/topicsSlice'
 import { addQuiz } from '../features/quizzes/quizzesSlice'
+// [Step 15] import addCard action creator
+import { addCard } from '../features/cards/cardsSlice'
+// [Step 16] Now that you have written code to collect an array of all the cardIds created whenever the new quiz form is submitted, replace the empty array with this array of cardIds
 
 export default function NewQuizForm() {
   const [name, setName] = useState("");
@@ -23,12 +26,25 @@ export default function NewQuizForm() {
 
     const cardIds = [];
 
-    // create the new cards here and add each card's id to cardIds
-    // create the new quiz here
+    // [Step 15] create the new cards here and add each card's id to cardIds
+    cards.forEach((card) => {
+      console.log(card)
+      const cardId = uuidv4()
+      cardIds.push(cardId)
+      dispatch(addCard({
+        ...card,
+        id: cardId
+      }))
+
+    })
+
+    console.log(cardIds)
+
+    // [Step 12] create the new quiz here
 
     const quizId = uuidv4();
 
-    // dispatch add quiz action 
+    // [Step 12] dispatch add quiz action 
     dispatch(
       addQuiz({
         id: quizId,
